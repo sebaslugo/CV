@@ -1,145 +1,116 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './App.css';
-import { Pane,  Text, Heading,Button,TreeIcon,defaultTheme, SquareIcon } from 'evergreen-ui'
+import { Pane,  Text, Heading } from 'evergreen-ui'
+import HoverImage from "react-hover-image";
 import perfil from './perfil.jpg'
 import jsIcon from './icon/js.png'
+import jsHover from './icon/jshover.png'
 import nodeIcon from './icon/node.png'
+import nodehover from './icon/nodehover.png'
 import seqIcon from './icon/seq.png'
+import seqhover from './icon/seqhover.png'
 import reactIcon from './icon/react.png'
+import reacthover from './icon/reacthover.png'
+import gitIcon from './icon/github.png'
+import linkIcon from './icon/linkenid.png'
+import sunIcon from './icon/sun.png'
+import moonIcon from './icon/moon.png'
+import soundcloudIcon from './icon/soundcloud.png'
+import speaker from './icon/speaker.png'
+import speakerhover from './icon/speakerhover.png'
+import { useSpring, animated } from 'react-spring'
+import {themeDark,themeLight} from './styleMode'
 
-const theme = {
-  ...defaultTheme,
-  Logo: {
-    color: 'white',
-    backgroundColor: '#EC4C47',
-    borderRadius: '5px',
-  },
-  imagDesc: {
-    display:'flex',
-    justifyContent: 'space-evenly',
-    paddingTop: '33px'
-
-  },
-  image:{
-    height:'350px',
-    borderRadius: '175px'
-  },
-  icon:{
-    height:"50px",
-    paddingRight:'10px'
-
-  },
-  panelImage:{
-    float:"left",
-    width: '264px',
-    height:'350px',
-    margin:'24px',
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center",
-    flexDirection:"column",
-    borderRadius:'100px'
-  },
-  panelText:{
-    width: '500px',
-    display:' flex',
-    flexDirection: 'column',
-    textAlign: 'justify',
-    marginTop: '60px'
-  }
-}
+const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.1]
+const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
 
 
 function App() {
+  const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 350, friction: 40 } }))
+  const [checked,setChecked] = useState (true)
+  const [theme, setTheme] = useState(themeLight)
+  const [hover,setHover] = useState(true)
+  
+  const handleChecked = (check) => {
+    if(!check) {setTheme(themeDark)}
+    else{setTheme(themeLight)} 
+
+    setChecked(check)
+  }
   return (
-    <div className="App">
-      <Pane display="flex" padding={16} background="tint2" borderRadius={3}>
-        <Pane flex={1} alignItems="center" display="flex">
-          <TreeIcon size={40} style={theme.Logo}/>
-        </Pane>
-      </Pane>
-      <Pane>
-        <Heading size={900} margin="default" color="muted">Full-Stack JavasCript Developer</Heading>
-      </Pane>
-      <Pane style={theme.imagDesc} borderTop>
-        <Pane elevation={5} style={theme.panelImage}>
-          <img src={perfil} style={theme.image}/> 
-        </Pane>
-         
-        <Pane style={theme.panelText} margin="default">
-          <Pane borderBottom paddingBottom={10}>
-            <img src={jsIcon} style={theme.icon}/>
-            <img src={seqIcon} style={theme.icon}/>
-            <img src={reactIcon} style={theme.icon}/>
-            <img src={nodeIcon} style={theme.icon}/>
-          </Pane>           
-          <Text  marginTop={10} marginTop="default" color="muted">
-            En la parte del Back-End, he implementado Express para el manejo de rutas en el servidor y PostgreSQL para la creación de la base de datos, junto con el uso de Sequelize. Además, debido a la experiencia y conocimientos adquiridos por la ingeniería de sonido, he diseñado dispositivos MIDI con el manejo de Arduino y procesamiento de señales de audio con Matlab, Python y Raspberry Pi.
-          </Text>
-        </Pane>
-      </Pane>
-      
-      <Pane
-        elevation={0}
-        float="left"
-        backgroundColor="white"
-        width={200}
-        height={120}
-        margin={24}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <Text>About</Text>
-        <Text size={300}>Flat Panes</Text>
-      </Pane>
-      <Pane
-        elevation={0}
-        float="left"
-        backgroundColor="white"
-        width={200}
-        height={120}
-        margin={24}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <Text>Proyectos</Text>
-        <Text size={300}>Flat Panes</Text>
-      </Pane>
-      <Pane
-        elevation={0}
-        float="left"
-        backgroundColor="white"
-        width={250}
-        height={300}
-        margin={24}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <Text>Experiencia</Text>
-        <Text size={300}>Flat Panes</Text>
-      </Pane>
-      <Pane
-        elevation={0}
-        float="left"
-        backgroundColor="white"
-        width={200}
-        height={120}
-        margin={24}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <Text>Contacto</Text>
-        <Text size={300}>Flat Panes</Text>
-      </Pane>
-    </div>
+      <div className='App'>
+        <Pane style={theme.root} >
+          <Pane display="flex" padding={16}  borderRadius={3} style = {theme.nav}>
+            
+            <Pane flex={1} alignItems="center" display="flex" onClick={() => handleChecked(!checked)}>
+              {checked ? <img src={moonIcon} style={theme.iconMenu}/> : <img src={sunIcon} style={theme.iconMenu}/> }
+            </Pane>
+            <Pane marginRight={16} alignItems="center" display="flex">
+              <a href={'https://github.com/sebaslugo'} target="_blank"><img src={gitIcon} style={theme.iconMenu}/></a>
+              <a href={'https://www.linkedin.com/in/jhoan-sebastian-lugo-ruiz-8577b01b6'} target="_blank"><img src={linkIcon} style={theme.iconMenu}/></a>
+              <a href={'https://soundcloud.com/sebaslugo'} target="_blank"><img src={soundcloudIcon} style={theme.iconMenu}/></a>
+            </Pane>
+          </Pane>
+          <Pane backgroundColor={'#FDF8F3'} style={theme.title}>
+            <Heading size={900}  color="muted">Full-Stack JavasCript Developer</Heading>
+          </Pane>
+          <Pane style={theme.imagDesc} borderTop>
+            <Pane elevation={5} style={theme.panelImage}>
+            <animated.div
+              class="card"
+              onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
+              onMouseLeave={() => set({ xys: [0, 0, 1] })}
+              style={{ transform: props.xys.interpolate(trans) }}
+            >
+              <img src={perfil} style={theme.image}/> 
+            </animated.div>
+            </Pane>
+            
+            <Pane style={theme.panelText} margin="default">
+              <Pane borderBottom paddingBottom={10}>
+                <HoverImage src={jsIcon} hoverSrc={jsHover} style={theme.icon}/>
+                <HoverImage src={seqIcon} hoverSrc={seqhover} style={theme.icon}/>
+                <HoverImage src={reactIcon} hoverSrc={reacthover} style={theme.icon}/>
+                <HoverImage src={nodeIcon} hoverSrc={nodehover} style={theme.icon}/>
+                <HoverImage src={speaker} hoverSrc={speakerhover} style={theme.icon}/>
+              </Pane>           
+              <Text  marginTop={10} marginTop="default" color="muted">
+                Esta "CV Web" fue diseñada con el uso de React App y algunos frameworks css como: Evergreen, Spring React, React Hover Image y posteada en Vercel. conocimientos en el diseño de base datos en Express js, Sequelize, Postgres, SQL, JWT, Nodemailer, y el diseño de hardware con arduino. 
+              </Text>
+              <Pane style={theme.allCards}>
+                <Pane
+                  style={theme.card}
+                  elevation={0}  
+                >
+                  <Text>About</Text>
+                  <Text size={300}>Flat Panes</Text>
+                </Pane>
+                <Pane
+                  style={theme.card}
+                  elevation={0}  
+                >
+                  <Text>Proyectos</Text>
+                  <Text size={300}>Flat Panes</Text>
+                </Pane>
+                <Pane
+                  style={theme.card}
+                  elevation={0}  
+                >
+                  <Text>Experiencia</Text>
+                  <Text size={300}>Flat Panes</Text>
+                </Pane>
+                <Pane
+                  style={theme.card}
+                  elevation={0}  
+                >
+                  <Text>Contacto</Text>
+                  <Text size={300}>Flat Panes</Text>
+                </Pane>
+              </Pane>
+            </Pane>
+          </Pane>   
+        </Pane>  
+      </div>
   );
 }
 

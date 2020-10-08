@@ -1,8 +1,7 @@
 .App {
   text-align: center;
-  padding-left:50px;
-  padding-right:50px;
-  padding-bottom: 50px;
+  background-color:'#EC4C47';
+  height: 100vh;
 }
 
 .App-logo {
@@ -39,3 +38,9 @@
     transform: rotate(360deg);
   }
 }
+
+.css-13qcn8a, [data-css-13qcn8a] {
+  background-color: black;
+  border-radius: 9999px;
+}
+
