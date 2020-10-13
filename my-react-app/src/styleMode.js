@@ -63,8 +63,7 @@ const themeLight = {
     title:{
       height: '105px',    
       paddingTop: '39px',
-      backgroundColor:'#FDF8F3'
-  
+      backgroundColor:'#FDF8F3',  
     },
     card:{
       width:'200px',
@@ -78,7 +77,8 @@ const themeLight = {
     allCards:{
       backgroundColor:'#FDF8F3',
       display:'flex'
-    }
+    },
+    
   }
   
 const themeDark = {
@@ -141,7 +141,8 @@ const themeDark = {
       height: '105px',    
       paddingTop: '39px',
       background:'#1A1A1C',
-      color:'white'
+      color:'white',
+      
   
     },
     card:{
@@ -158,16 +159,9 @@ const themeDark = {
       display:'flex'
     },
     
+    
   }
 
-  const themerespons = {
-    ...defaultTheme,
-    root:{
-      paddingRight:'20px',
-      paddingLeft:'20px',
-      backgroundColor:'#88E124'
   
-    },
-  }
 
-export {themeLight,themeDark,themerespons}
+export {themeLight,themeDark}

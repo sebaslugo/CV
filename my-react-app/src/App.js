@@ -50,14 +50,45 @@ function App() {
           display:'flex',
           flexDirection:'column',
           justifyContent: 'space-evenly',
-          paddingTop: '33px',
           backgroundColor: theme.imagDesc.backgroundColor,
           alignItems: 'center'
-        }
+        },
+        image:{
+          maxHeight:'218px',
+          borderRadius: '175px'
+        },
+        panelImage:{
+          float:"left",
+          width: '264px',
+          height:'330px',
+          display:"flex",
+          justifyContent:"center",
+          alignItems:"center",
+          flexDirection:"column",
+          borderRadius:'100px'
+        },
+        allCards:{
+          backgroundColor:'#1A1A1C',
+          display:'flex',
+          flexDirection:'column'
+        },      
+        panelText:{
+          width:'323px',          
+          paddingRight: '29px',
+          paddingBottom: '20px',
+          marginLeft: '10px',
+          textAlign: 'justify',
+        },
+        icon:{
+          height:"40px",
+          paddingRight:'10px'
+      
+        },
+        
       })
       setHover(false)
     }
-    if(isBigScreen && !hover){
+    if(isBigScreen && !hover ){
       checked && setTheme(themeLight)
       !checked && setTheme(themeDark)
       setHover(true)
@@ -67,7 +98,7 @@ function App() {
   const handleChecked = (check) => {
     if(!check) {setTheme(themeDark)}
     else{setTheme(themeLight)} 
-
+    setHover(true)
     setChecked(check)
   }
   return (
@@ -85,7 +116,7 @@ function App() {
             </Pane>
           </Pane>          
           <Pane backgroundColor={'#FDF8F3'} style={theme.title}>
-            <Heading size={900}  color="muted">Full-Stack JavasCript Developer</Heading>
+            <Heading size = {isBigScreen ? 900 : 600} color="muted">Full-Stack JavasCript Developer</Heading>
           </Pane>    
           <Pane style={theme.imagDesc} borderTop>
             <Pane elevation={5} style={theme.panelImage}>
@@ -100,7 +131,7 @@ function App() {
             </Pane>
             
             <Pane style={theme.panelText} margin="default">
-              <Pane borderBottom paddingBottom={10}>
+              <Pane borderBottom paddingBottom={10} >
                 <HoverImage src={jsIcon} hoverSrc={jsHover} style={theme.icon}/>
                 <HoverImage src={seqIcon} hoverSrc={seqhover} style={theme.icon}/>
                 <HoverImage src={reactIcon} hoverSrc={reacthover} style={theme.icon}/>
@@ -110,7 +141,7 @@ function App() {
               <Text  marginTop={10} marginTop="default" color="muted">
                 Esta "CV Web" fue diseñada con el uso de React App y algunos frameworks css como: Evergreen, Spring React, React Hover Image y posteada en Vercel. conocimientos en el diseño de base datos en Express js, Sequelize, Postgres, SQL, JWT, Nodemailer, y el diseño de hardware con arduino. 
               </Text>
-              <Pane style={theme.allCards}>
+              {isBigScreen && <Pane style={theme.allCards}>
                 <Pane
                   style={theme.card}
                   elevation={0}  
@@ -139,7 +170,7 @@ function App() {
                   <Text>Contacto</Text>
                   <Text size={300}>Flat Panes</Text>
                 </Pane>
-              </Pane>
+              </Pane>}
             </Pane>
           </Pane>   
               
