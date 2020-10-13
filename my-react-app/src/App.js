@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import './App.css';
-import { Pane,  Text, Heading } from 'evergreen-ui'
+import { Pane,  Text, Heading,Menu,toaster,IconButton,Popover,Position, MenuIcon } from 'evergreen-ui'
 import HoverImage from "react-hover-image";
 import perfil from './perfil.jpg'
 import jsIcon from './icon/js.png'
@@ -21,6 +21,7 @@ import soundcloudIcon from './icon/soundcloud.png'
 import cloudhover from './icon/cloudhover.png'
 import speaker from './icon/speaker.png'
 import speakerhover from './icon/speakerhover.png'
+import menu from './icon/menu.png'
 import { useSpring, animated } from 'react-spring'
 import {themeLight,themeDark,themerespons} from './styleMode'
 import { useMediaQuery } from 'react-responsive'
@@ -66,12 +67,7 @@ function App() {
           alignItems:"center",
           flexDirection:"column",
           borderRadius:'100px'
-        },
-        allCards:{
-          backgroundColor:'#1A1A1C',
-          display:'flex',
-          flexDirection:'column'
-        },      
+        },     
         panelText:{
           width:'323px',          
           paddingRight: '29px',
@@ -117,8 +113,26 @@ function App() {
           </Pane>          
           <Pane backgroundColor={'#FDF8F3'} style={theme.title}>
             <Heading size = {isBigScreen ? 900 : 600} color="muted">Full-Stack JavasCript Developer</Heading>
-          </Pane>    
+          </Pane>  
           <Pane style={theme.imagDesc} borderTop>
+            {isTabletOrMobileDevice &&
+              <Popover   
+                position={Position.BOTTOM_LEFT}        
+                content={
+                  <Menu>
+                    <Menu.Group>
+                      <Menu.Item onSelect={() => toaster.notify('Share')}>About</Menu.Item>
+                      <Menu.Item onSelect={() => toaster.notify('Move')}>Proyectos</Menu.Item>
+                      <Menu.Item onSelect={() => toaster.notify('Move')}>Experiencia</Menu.Item>
+                      <Menu.Item onSelect={() => toaster.notify('Move')}>Contacto</Menu.Item>
+                    </Menu.Group>
+                  </Menu>
+                }
+              >
+                <IconButton appearance="minimal" icon={MenuIcon} iconSize={18} style={theme.menu}/>
+              </Popover>
+            
+            } 
             <Pane elevation={5} style={theme.panelImage}>
             <animated.div
               class="card"
@@ -141,7 +155,7 @@ function App() {
               <Text  marginTop={10} marginTop="default" color="muted">
                 Esta "CV Web" fue diseñada con el uso de React App y algunos frameworks css como: Evergreen, Spring React, React Hover Image y posteada en Vercel. conocimientos en el diseño de base datos en Express js, Sequelize, Postgres, SQL, JWT, Nodemailer, y el diseño de hardware con arduino. 
               </Text>
-              {isBigScreen && <Pane style={theme.allCards}>
+              {!isTabletOrMobileDevice && <Pane style={theme.allCards}>
                 <Pane
                   style={theme.card}
                   elevation={0}  

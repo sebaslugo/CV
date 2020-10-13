@@ -78,6 +78,11 @@ const themeLight = {
       backgroundColor:'#FDF8F3',
       display:'flex'
     },
+    menu:{
+      left: '-140px',
+      width: '34px',
+      height: '36px',
+    }
     
   }
   
@@ -158,6 +163,10 @@ const themeDark = {
       backgroundColor:'#1A1A1C',
       display:'flex'
     },
+    menu:{
+      left: '-140px',
+      width: '40px',
+    }
     
     
   }
