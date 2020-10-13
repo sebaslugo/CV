@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import './App.css';
 import { Pane,  Text, Heading } from 'evergreen-ui'
 import HoverImage from "react-hover-image";
@@ -12,25 +12,58 @@ import seqhover from './icon/seqhover.png'
 import reactIcon from './icon/react.png'
 import reacthover from './icon/reacthover.png'
 import gitIcon from './icon/github.png'
+import githover from './icon/githover.png'
 import linkIcon from './icon/linkenid.png'
+import linkhover from './icon/linkhover.png'
 import sunIcon from './icon/sun.png'
 import moonIcon from './icon/moon.png'
 import soundcloudIcon from './icon/soundcloud.png'
+import cloudhover from './icon/cloudhover.png'
 import speaker from './icon/speaker.png'
 import speakerhover from './icon/speakerhover.png'
 import { useSpring, animated } from 'react-spring'
-import {themeDark,themeLight} from './styleMode'
+import {themeLight,themeDark,themerespons} from './styleMode'
+import { useMediaQuery } from 'react-responsive'
+
 
 const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.1]
 const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
 
 
 function App() {
+ 
+  const isTabletOrMobileDevice = useMediaQuery({
+    query: '(max-device-width: 1224px)'
+  })
+  const isBigScreen = useMediaQuery({ query: '(min-device-width: 1824px)' });
+
   const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 350, friction: 40 } }))
   const [checked,setChecked] = useState (true)
   const [theme, setTheme] = useState(themeLight)
   const [hover,setHover] = useState(true)
   
+  useEffect(() => {
+    if(isTabletOrMobileDevice && hover){
+      setTheme({
+        ...theme,
+        imagDesc:{
+          display:'flex',
+          flexDirection:'column',
+          justifyContent: 'space-evenly',
+          paddingTop: '33px',
+          backgroundColor: theme.imagDesc.backgroundColor,
+          alignItems: 'center'
+        }
+      })
+      setHover(false)
+    }
+    if(isBigScreen && !hover){
+      checked && setTheme(themeLight)
+      !checked && setTheme(themeDark)
+      setHover(true)
+    }
+  })
+
   const handleChecked = (check) => {
     if(!check) {setTheme(themeDark)}
     else{setTheme(themeLight)} 
@@ -46,14 +79,14 @@ function App() {
               {checked ? <img src={moonIcon} style={theme.iconMenu}/> : <img src={sunIcon} style={theme.iconMenu}/> }
             </Pane>
             <Pane marginRight={16} alignItems="center" display="flex">
-              <a href={'https://github.com/sebaslugo'} target="_blank"><img src={gitIcon} style={theme.iconMenu}/></a>
-              <a href={'https://www.linkedin.com/in/jhoan-sebastian-lugo-ruiz-8577b01b6'} target="_blank"><img src={linkIcon} style={theme.iconMenu}/></a>
-              <a href={'https://soundcloud.com/sebaslugo'} target="_blank"><img src={soundcloudIcon} style={theme.iconMenu}/></a>
+              <a href={'https://github.com/sebaslugo'} target="_blank"><HoverImage src={gitIcon} hoverSrc={githover} style={theme.icon}/></a>
+              <a href={'https://www.linkedin.com/in/jhoan-sebastian-lugo-ruiz-8577b01b6'} target="_blank"><HoverImage src={linkIcon} hoverSrc={linkhover} style={theme.icon}/></a>
+              <a href={'https://soundcloud.com/sebaslugo'} target="_blank"><HoverImage src={soundcloudIcon} hoverSrc={cloudhover} style={theme.icon}/></a>
             </Pane>
-          </Pane>
+          </Pane>          
           <Pane backgroundColor={'#FDF8F3'} style={theme.title}>
             <Heading size={900}  color="muted">Full-Stack JavasCript Developer</Heading>
-          </Pane>
+          </Pane>    
           <Pane style={theme.imagDesc} borderTop>
             <Pane elevation={5} style={theme.panelImage}>
             <animated.div
@@ -109,6 +142,8 @@ function App() {
               </Pane>
             </Pane>
           </Pane>   
+              
+          
         </Pane>  
       </div>
   );

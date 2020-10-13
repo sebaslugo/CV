@@ -1,6 +1,9 @@
 import { defaultTheme } from 'evergreen-ui'
 
-export const themeLight = {
+
+
+
+const themeLight = {
     ...defaultTheme,
     root:{
       paddingRight:'20px',
@@ -78,13 +81,12 @@ export const themeLight = {
     }
   }
   
-export const themeDark = {
+const themeDark = {
     ...defaultTheme,
     root:{
       paddingRight:'20px',
       paddingLeft:'20px',
-      backgroundColor:'Black'
-  
+      backgroundColor:'Black',  
     },
     nav:{
       background:"#76473C"
@@ -157,3 +159,15 @@ export const themeDark = {
     },
     
   }
+
+  const themerespons = {
+    ...defaultTheme,
+    root:{
+      paddingRight:'20px',
+      paddingLeft:'20px',
+      backgroundColor:'#88E124'
+  
+    },
+  }
+
+export {themeLight,themeDark,themerespons}
