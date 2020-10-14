@@ -126,7 +126,7 @@ function App() {
             
             <Pane flex={1} alignItems="center" display="flex" >
               {checked ? <img src={moonIcon} style={theme.iconMenu} onClick={() => handleChecked(!checked)}/> : <img src={sunIcon} style={theme.iconMenu} onClick={() => handleChecked(!checked)}/> }
-              <a href={hojadeVida} download="CV-Jhoan-Lugo">
+              <a href={hojadeVida} download="CV-Jhoan-Lugo" target="_blank">
                 <img src={cv} style={theme.icon}/>          
               </a>
             </Pane>
