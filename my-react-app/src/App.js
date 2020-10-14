@@ -90,7 +90,7 @@ function App() {
       
         },
         opcion:{
-          backgroundColor:'#FDF8F3',
+          backgroundColor:themePrev.opcion.backgroundColor,
           display:'flex',
           flexDirection:'column',
           alignItems:'center',
