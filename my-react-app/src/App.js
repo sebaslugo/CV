@@ -96,7 +96,13 @@ function App() {
           alignItems:'center',
           padding:'20px',
           width:'300px'
-        }
+        },
+        iconMenu:{
+          height:"40px",
+          paddingRight:'10px',
+          cursor:'pointer'
+      
+        },
         
       }
       setTheme(tema)
@@ -132,9 +138,9 @@ function App() {
             </Pane>
             
             <Pane marginRight={16} alignItems="center" display="flex">
-              <a href={'https://github.com/sebaslugo'} target="_blank"><HoverImage src={gitIcon} hoverSrc={githover} style={theme.icon}/></a>
-              <a href={'https://www.linkedin.com/in/jhoan-sebastian-lugo-ruiz-8577b01b6'} target="_blank"><HoverImage src={linkIcon} hoverSrc={linkhover} style={theme.icon}/></a>
-              <a href={'https://soundcloud.com/sebaslugo'} target="_blank"><HoverImage src={soundcloudIcon} hoverSrc={cloudhover} style={theme.icon}/></a>
+              <a href={'https://github.com/sebaslugo'} target="_blank"><HoverImage src={gitIcon} hoverSrc={githover} style={theme.iconMenu}/></a>
+              <a href={'https://www.linkedin.com/in/jhoan-sebastian-lugo-ruiz-8577b01b6'} target="_blank"><HoverImage src={linkIcon} hoverSrc={linkhover} style={theme.iconMenu}/></a>
+              <a href={'https://soundcloud.com/sebaslugo'} target="_blank"><HoverImage src={soundcloudIcon} hoverSrc={cloudhover} style={theme.iconMenu}/></a>
             </Pane>
           </Pane>          
           <Pane backgroundColor={'#FDF8F3'} style={theme.title}>

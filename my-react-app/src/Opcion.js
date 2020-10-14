@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pane,  IconButton,SmallCrossIcon,Heading,Text } from 'evergreen-ui'
-
+import HoverImage from "react-hover-image";
+import linkIcon from './icon/linkenid.png'
+import linkhover from './icon/linkhover.png'
 
 export default function Option ({close,theme,value}) {
     return (
@@ -75,6 +77,7 @@ export default function Option ({close,theme,value}) {
                 <Text  marginTop={10} marginTop="default" color="muted">
                     jslugo235@gmail.com     
                 </Text>
+                <a href={'https://www.linkedin.com/in/jhoan-sebastian-lugo-ruiz-8577b01b6'} target="_blank"><HoverImage src={linkIcon} hoverSrc={linkhover} style={theme.iconMenu}/></a>
             
             </Pane>
         }

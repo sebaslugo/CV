@@ -37,7 +37,7 @@ const themeLight = {
       
     },
     iconMenu:{
-      height:"50px",
+      height:"60px",
       paddingRight:'10px',
       cursor:'pointer'
   
@@ -137,7 +137,7 @@ const themeDark = {
   
     },
     iconMenu:{
-      height:"50px",
+      height:"60px",
       paddingRight:'10px',
       cursor:'pointer'
   
