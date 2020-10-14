@@ -21,15 +21,21 @@ import soundcloudIcon from './icon/soundcloud.png'
 import cloudhover from './icon/cloudhover.png'
 import speaker from './icon/speaker.png'
 import speakerhover from './icon/speakerhover.png'
-import menu from './icon/menu.png'
+import proyectos from './icon/projectos.png'
+import contacto from './icon/contacto.png'
+import experiencia from './icon/experiencia.png'
+import cv from './icon/cv.png'
+import about from './icon/about.png'
 import { useSpring, animated } from 'react-spring'
-import {themeLight,themeDark,themerespons} from './styleMode'
+import {themeLight,themeDark} from './styleMode'
 import { useMediaQuery } from 'react-responsive'
+import Opcion from './Opcion'
+import hojadeVida from './cv.pdf'
 
 
 const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.1]
 const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
-
+const options = ['About','Proyectos','Experiencia','Contacto']
 
 function App() {
  
@@ -40,18 +46,21 @@ function App() {
 
   const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 350, friction: 40 } }))
   const [checked,setChecked] = useState (true)
+  const [themePrev, setThemePrev] = useState(themeLight)
   const [theme, setTheme] = useState(themeLight)
+  
   const [hover,setHover] = useState(true)
   
   useEffect(() => {
+    
     if(isTabletOrMobileDevice && hover){
-      setTheme({
-        ...theme,
+      let tema ={
+        ...themePrev,
         imagDesc:{
           display:'flex',
           flexDirection:'column',
           justifyContent: 'space-evenly',
-          backgroundColor: theme.imagDesc.backgroundColor,
+          backgroundColor: themePrev.imagDesc.backgroundColor,
           alignItems: 'center'
         },
         image:{
@@ -80,8 +89,17 @@ function App() {
           paddingRight:'10px'
       
         },
+        opcion:{
+          backgroundColor:'#FDF8F3',
+          display:'flex',
+          flexDirection:'column',
+          alignItems:'center',
+          padding:'20px',
+          width:'300px'
+        }
         
-      })
+      }
+      setTheme(tema)
       setHover(false)
     }
     if(isBigScreen && !hover ){
@@ -92,8 +110,12 @@ function App() {
   })
 
   const handleChecked = (check) => {
-    if(!check) {setTheme(themeDark)}
-    else{setTheme(themeLight)} 
+    if(!check && isTabletOrMobileDevice) {setThemePrev(themeDark)}    
+    else if(check && isTabletOrMobileDevice){setThemePrev(themeLight)}
+    else if(!check && !isTabletOrMobileDevice){
+      setTheme(themeDark)
+    }
+    else{setTheme(themeLight)}
     setHover(true)
     setChecked(check)
   }
@@ -102,9 +124,13 @@ function App() {
         <Pane style={theme.root} >
           <Pane display="flex" padding={16}  borderRadius={3} style = {theme.nav}>
             
-            <Pane flex={1} alignItems="center" display="flex" onClick={() => handleChecked(!checked)}>
-              {checked ? <img src={moonIcon} style={theme.iconMenu}/> : <img src={sunIcon} style={theme.iconMenu}/> }
+            <Pane flex={1} alignItems="center" display="flex" >
+              {checked ? <img src={moonIcon} style={theme.iconMenu} onClick={() => handleChecked(!checked)}/> : <img src={sunIcon} style={theme.iconMenu} onClick={() => handleChecked(!checked)}/> }
+              <a href={hojadeVida} download="CV-Jhoan-Lugo">
+                <img src={cv} style={theme.icon}/>          
+              </a>
             </Pane>
+            
             <Pane marginRight={16} alignItems="center" display="flex">
               <a href={'https://github.com/sebaslugo'} target="_blank"><HoverImage src={gitIcon} hoverSrc={githover} style={theme.icon}/></a>
               <a href={'https://www.linkedin.com/in/jhoan-sebastian-lugo-ruiz-8577b01b6'} target="_blank"><HoverImage src={linkIcon} hoverSrc={linkhover} style={theme.icon}/></a>
@@ -112,7 +138,7 @@ function App() {
             </Pane>
           </Pane>          
           <Pane backgroundColor={'#FDF8F3'} style={theme.title}>
-            <Heading size = {isBigScreen ? 900 : 600} color="muted">Full-Stack JavasCript Developer</Heading>
+            <Heading size = {!isTabletOrMobileDevice ? 900 : 600} color="muted">Full-Stack JavasCript Developer</Heading>
           </Pane>  
           <Pane style={theme.imagDesc} borderTop>
             {isTabletOrMobileDevice &&
@@ -120,11 +146,18 @@ function App() {
                 position={Position.BOTTOM_LEFT}        
                 content={
                   <Menu>
-                    <Menu.Group>
-                      <Menu.Item onSelect={() => toaster.notify('Share')}>About</Menu.Item>
-                      <Menu.Item onSelect={() => toaster.notify('Move')}>Proyectos</Menu.Item>
-                      <Menu.Item onSelect={() => toaster.notify('Move')}>Experiencia</Menu.Item>
-                      <Menu.Item onSelect={() => toaster.notify('Move')}>Contacto</Menu.Item>
+                    <Menu.Group>                  
+                      {options.map((opcion)=>(
+                        <Popover
+                        content={({ close }) => (
+                          <Opcion close={close} theme={theme} value={opcion}/>
+                        )}
+                        position={Position.BOTTOM}
+                        >
+                          <Menu.Item>{opcion}</Menu.Item>
+                        </Popover>                        
+                      ))}  
+                      <Menu.Item ></Menu.Item>               
                     </Menu.Group>
                   </Menu>
                 }
@@ -156,34 +189,75 @@ function App() {
                 Esta "CV Web" fue diseñada con el uso de React App y algunos frameworks css como: Evergreen, Spring React, React Hover Image y posteada en Vercel. conocimientos en el diseño de base datos en Express js, Sequelize, Postgres, SQL, JWT, Nodemailer, y el diseño de hardware con arduino. 
               </Text>
               {!isTabletOrMobileDevice && <Pane style={theme.allCards}>
+              <Popover
+                content={({ close }) => (
+                  <Opcion close={close} theme={theme} value={'About'}/>
+                )}
+                position={Position.RIGHT}
+              >
                 <Pane
-                  style={theme.card}
-                  elevation={0}  
-                >
-                  <Text>About</Text>
-                  <Text size={300}>Flat Panes</Text>
+                  hoverElevation={3}
+                  borderTop='default'
+                  borderLeft='default'
+                  borderRight='default'
+                  style={theme.card}                   
+                >                  
+                  <Text size={200}>About</Text>
+                  <img src={about}/>
                 </Pane>
+              </Popover>
+              <Popover
+                content={({ close }) => (
+                  <Opcion close={close} theme={theme} value={'Proyectos'}/>
+                )}
+                position={Position.RIGHT}
+              >
                 <Pane
-                  style={theme.card}
-                  elevation={0}  
+                  hoverElevation={3}
+                  borderTop='default'
+                  borderLeft='default'
+                  borderRight='default'
+                  style={theme.card}                   
                 >
-                  <Text>Proyectos</Text>
-                  <Text size={300}>Flat Panes</Text>
+                  <Text size={200}>Proyectos</Text>
+                  <img src={proyectos} style={{padding:'10px'}}/>
                 </Pane>
+              </Popover>
+              <Popover
+                content={({ close }) => (
+                  <Opcion close={ close} theme={theme} value={'Experiencia'}/>
+                )}
+                position={Position.LEFT}
+              >
                 <Pane
-                  style={theme.card}
-                  elevation={0}  
+                  hoverElevation={3}
+                  borderTop='default'
+                  borderLeft='default'
+                  borderRight='default'
+                  style={theme.card}                    
                 >
-                  <Text>Experiencia</Text>
-                  <Text size={300}>Flat Panes</Text>
+                  <Text size={200}>Experiencia</Text>
+                  <img src={experiencia}/>
                 </Pane>
+              </Popover>
+              <Popover
+                
+                content={({ close }) => (
+                  <Opcion close={ close} theme={theme} value={'Contacto'}/>
+                )}
+                position={Position.LEFT}
+              >
                 <Pane
-                  style={theme.card}
-                  elevation={0}  
+                  hoverElevation={3}
+                  borderTop='default'
+                  borderLeft='default'
+                  borderRight='default'
+                  style={theme.card}                    
                 >
-                  <Text>Contacto</Text>
-                  <Text size={300}>Flat Panes</Text>
+                  <Text size={200}>Contacto</Text>
+                  <img src={contacto} style={{padding:'10px'}}/>
                 </Pane>
+              </Popover>
               </Pane>}
             </Pane>
           </Pane>   

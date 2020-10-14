@@ -66,13 +66,16 @@ const themeLight = {
       backgroundColor:'#FDF8F3',  
     },
     card:{
-      width:'200px',
-      height:'120px',
+      width:'310px',
+      height:'131px',
       margin:'24px',
       display:"flex",
-      justifyContent:"center",
+      padding:'4px',
+      marginRight:'0px',
+      marginLeft:'0px',
       alignItems:"center",
-      flexDirection:"column"
+      flexDirection:"column",
+      cursor:'pointer',
     },
     allCards:{
       backgroundColor:'#FDF8F3',
@@ -82,6 +85,21 @@ const themeLight = {
       left: '-140px',
       width: '34px',
       height: '36px',
+    },
+    opcion:{
+      backgroundColor:'#FDF8F3',
+      display:'flex',
+      flexDirection:'column',
+      alignItems:'center',
+      padding:'20px',
+      width:'400px'
+    },
+    textOption:{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent:'center',
+      alignItems:'center',
+      textAlign: 'justify',
     }
     
   }
@@ -138,9 +156,10 @@ const themeDark = {
     panelText:{
       width: '500px',
       display:' flex',
-      flexDirection: 'column',
+      flexDirection:"column",
       textAlign: 'justify',
       marginTop: '60px'
+      
     },
     title:{
       height: '105px',    
@@ -151,10 +170,13 @@ const themeDark = {
   
     },
     card:{
-      width:'200px',
-      height:'120px',
+      width:'310px',
+      height:'131px',
       margin:'24px',
       display:"flex",
+      padding:'0px',
+      marginRight:'0px',
+      marginLeft:'0px',
       justifyContent:"center",
       alignItems:"center",
       flexDirection:"column"
@@ -165,10 +187,30 @@ const themeDark = {
     },
     menu:{
       left: '-140px',
-      width: '40px',
+      width: '34px',
+      height: '36px',
+    },
+    opcion:{
+      backgroundColor:'#1A1A1C',
+      display:'flex',
+      flexDirection:'column',
+      alignItems:'center',
+      padding:'20px',
+      width:'400px'
+    },
+    textOption:{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent:'center',
+      alignItems:'center',
+      textAlign: 'justify',
+      color:'white'
+    },
+    titleOp:{
+      color:'white'
     }
-    
-    
+  
+       
   }
 
   
